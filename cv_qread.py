@@ -9,7 +9,6 @@ import random as rand
 
 def capture_vid():
     try:
-        #cvid = cv2.VideoCapture(0)
         cap_handle = cv2.VideoCapture('v4l2src ! video/x-raw,width=640,height=480 ! decodebin ! videoconvert ! appsink', cv2.CAP_GSTREAMER)
         ret, frame = cap_handle.read()
         return frame, cap_handle
@@ -17,8 +16,6 @@ def capture_vid():
         print("Video capture error, " + str(e))  
 
 def process_frame(newframe):
-    #grim = cv2.cvtColor(newframe, cv2.COLOR_BGR2GRAY)
-    #cv2.imwrite('rawim.png', newframe)
     code_id = 0
     log_data = {"Code ID" : "", "Decoded Data" : ""} 
     for code in decode(newframe):
@@ -37,7 +34,6 @@ def process_frame(newframe):
             with open("log.txt", "a+") as logging_dat:
                 json_str = json.dumps(log_data)
                 logging_dat.write(json_str + '\n')
-            #keyint = c2.waitKey(1)
         except Exception as e:
             print("Frame processing error, " + str(e))  
 
